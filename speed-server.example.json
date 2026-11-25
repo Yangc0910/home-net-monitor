@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Replace with a permitted LibreSpeed host",
+    "server": "https://speedtest.example.com/",
+    "dlURL": "garbage.php",
+    "ulURL": "empty.php",
+    "pingURL": "empty.php",
+    "getIpURL": "getIP.php"
+  }
+]

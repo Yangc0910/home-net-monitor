@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>家庭网络监测</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<main>
+  <header class="mast"><div><h1>家庭网络监测</h1><p id="link">正在读取这台电脑的 Wi‑Fi 状态</p></div><a href="#annotate" class="primary">记录事件</a></header>
+  <section class="signal" aria-labelledby="status-title">
+    <div><div class="status-line"><i id="lamp"></i><h2 id="status-title">等待首轮探测</h2></div><p id="status-detail" role="status"></p></div>
+    <div class="heartbeat"><span>最近采集</span><strong id="heartbeat">—</strong><small>纽约时间</small></div>
+  </section>
+  <section class="panel" aria-labelledby="comparison-title"><h2 id="comparison-title">两条 Wi‑Fi 对比</h2><div id="wifi-comparison" class="scroll"></div><p>观测时长按采样间隔估算。两条 Wi‑Fi 分时观测，表中仅统计已识别的样本。</p></section>
+  <section aria-labelledby="targets-title"><h2 id="targets-title">分层探测</h2><div id="targets" class="targets"></div></section>
+  <section class="panel" aria-labelledby="trend-title">
+    <header class="section-head"><h2 id="trend-title">网络趋势</h2>
+      <label>时间范围 <select id="range"><option value="1">最近 1 小时</option><option value="6">最近 6 小时</option><option value="24">最近 24 小时</option><option value="168">最近 7 天</option></select></label><label>截止日期（纽约） <input id="ending" type="date"></label>
+    </header>
+    <div class="controls"><label>Wi‑Fi <select id="network"><option value="">全部</option><option value="Gongxifacai">Gongxifacai · Google Nest</option><option value="Astound">Astound</option><option value="switching">切换中</option><option value="unknown">未知</option><option value="other">其他 Wi‑Fi</option><option value="legacy">旧记录，无网络标签</option></select></label><label>目标 <select id="series"></select></label>
+      <label>指标 <select id="metric"><option value="rtt">平均延迟</option><option value="p95">P95 延迟</option><option value="loss">丢包 / 失败率</option><option value="jitter">抖动</option></select></label>
+    </div>
+    <div class="chart-tools">
+      <p id="chart-zoom-help">在曲线上横向拖选一段时间，松开即可放大。</p>
+      <div><button type="button" id="chart-zoom-in" disabled>放大中央</button> <button type="button" id="chart-zoom-reset" disabled>重置缩放</button></div>
+    </div>
+    <canvas id="chart" role="img" aria-label="选定目标的历史趋势" aria-describedby="chart-zoom-help chart-view"></canvas>
+    <p id="chart-view" role="status" hidden></p>
+    <div id="chart-legend" class="chart-legend"></div><p id="chart-note"></p>
+  </section>
+  <div class="split">
+    <section class="panel" aria-labelledby="incident-title"><h2 id="incident-title">故障时间线</h2><div id="incidents"></div><div id="gaps"></div><h3>Wi‑Fi 切换与重连</h3><div id="wifi-changes"></div></section>
+    <section class="panel" aria-labelledby="annotation-title" id="annotate"><h2 id="annotation-title">家庭事件</h2>
+      <form id="annotation"><label>类型 <select name="kind"><option value="hvac-start">HVAC 启动</option><option value="hvac-stop">HVAC 停止</option><option value="equipment">设备变更</option><option value="ups">UPS 安装</option><option value="note">其他</option></select></label>
+        <div class="controls"><label>发生时间（纽约） <input name="when" type="datetime-local" required></label><label>UTC 偏移（夏令时回拨时） <select name="offset"><option value="">自动</option><option value="-4">UTC−04</option><option value="-5">UTC−05</option></select></label></div>
+        <label>备注 <textarea name="note" maxlength="500" rows="2"></textarea></label><button class="primary">保存事件</button><p id="annotation-msg" role="status"></p>
+      </form>
+      <div id="annotations"></div>
+    </section>
+  </div>
+  <section class="panel" aria-labelledby="heating-title"><h2 id="heating-title">Nest 供暖</h2><p id="nest-status" role="status"></p><div id="heating"></div><div id="nest-gaps"></div></section>
+  <section class="panel" aria-labelledby="correlation-title"><h2 id="correlation-title">HVAC 时间关联</h2><p>按同一 Wi‑Fi 对比事件前后各 5 分钟。对照窗口为事件前第 10 至第 5 分钟。</p><div id="correlation"></div></section>
+  <section class="panel" aria-labelledby="speed-title"><header class="section-head"><h2 id="speed-title">下载与上传测速</h2><button id="speed-run" disabled>运行测速</button></header><p id="speed-msg" role="status"></p><div id="speeds"></div></section>
+  <section class="panel" aria-labelledby="export-title"><h2 id="export-title">导出所选时间范围</h2><div id="exports" class="controls"></div></section>
+</main>
+</body></html>

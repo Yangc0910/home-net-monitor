@@ -1,0 +1,10 @@
+bin/
+obj/
+artifacts/
+*.user
+*.db
+*.db-*
+nest.credentials.json
+nest.pubsub-key.json
+client_secret*.json
+service-account*.json
